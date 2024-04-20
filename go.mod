@@ -11,7 +11,7 @@ require (
 	github.com/pressly/goose/v3 v3.19.2
 	github.com/segmentio/ksuid v1.0.4
 	github.com/stephenafamo/bob v0.25.0
-	github.com/tetratelabs/wazero v1.7.0
+	github.com/tetratelabs/wazero v1.7.1
 	gotest.tools/gotestsum v1.11.0
 	honnef.co/go/tools v0.4.7
 )
