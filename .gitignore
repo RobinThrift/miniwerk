@@ -1,0 +1,16 @@
+.DS_Store
+
+.vscode
+.idea
+
+.gobin
+
+node_modules
+
+test/.run
+.tmp
+
+build
+ui/build
+test.junit.xml
+lint.junit.xml

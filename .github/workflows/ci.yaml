@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  LintAndTest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: "go.mod"
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 'latest'
+    - name: Install just 1.25.2
+      uses: kodeshack/action-install-gh-release@v1.4.2
+      with:
+        owner: casey
+        repo: just
+        version: '1.25.2'
+        test: just --version
+
+    - name: "Lint"
+      run: |
+        just lint-ci
+
+    - name: "Test"
+      run: |
+        just test-ci
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        check_name: "Test Results"
+        files: |
+          test.junit.xml
+
+    - name: Publish Lint Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        check_name: "Lint Results"
+        files: |
+          lint.junit.xml
+
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: "go.mod"
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 'latest'
+    - name: Install just 1.25.2
+      uses: kodeshack/action-install-gh-release@v1.4.2
+      with:
+        owner: casey
+        repo: just
+        version: '1.25.2'
+        test: just --version
+
+    - name: "Build"
+      run: |
+        just build

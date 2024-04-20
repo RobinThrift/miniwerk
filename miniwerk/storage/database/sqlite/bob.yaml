@@ -1,0 +1,31 @@
+replacements:
+- match:
+    name: "created_at"
+    db_type: "TEXT"
+    default: "(strftime('%Y-%m-%d %H:%M:%SZ', CURRENT_TIMESTAMP))"
+
+  replace:
+    type: "types.SQLiteDatetime"
+    imports: ['"github.com/RobinThrift/miniwerk/miniwerk/storage/database/sqlite/types"']
+
+- match:
+    name: "updated_at"
+    db_type: "TEXT"
+    default: "(strftime('%Y-%m-%d %H:%M:%SZ', CURRENT_TIMESTAMP))"
+
+  replace:
+    type: "types.SQLiteDatetime"
+    imports: ['"github.com/RobinThrift/miniwerk/miniwerk/storage/database/sqlite/types"']
+
+no_factory: true
+no_tests: true
+no_back_referencing: true
+
+sqlite:
+  dsn: "./tmp/_miniwerk.db"
+
+  output: "miniwerk/storage/database/sqlite/models"
+  pkgname: "models"
+
+  except:
+    migrations: {}
