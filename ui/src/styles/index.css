@@ -1,0 +1,7 @@
+@import "./_tailwind.css";
+
+@layer utilities {
+    .max-w-screen {
+        max-width: 100vw;
+    }
+}
